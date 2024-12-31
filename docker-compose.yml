@@ -1,5 +1,6 @@
 version: '3.9'
 services:
+  # 通常起動用のコンテナ
   api:
     build:
       context: .
@@ -10,11 +11,7 @@ services:
       - /myapp/tmp # Airの一時ファイル用
     working_dir: /myapp
     ports:
-      - "8080:8080" # アプリケーションのポート
+      - "8080:8080" # myapp port
+      - "2345:2345" # debug port
     command: >
-      sh -c "
-        go run github.com/air-verse/air@latest -c .air.toml
-      "
-#      sh -c "
-#        go run ./cmd/main.go
-#      "
+      sh -c "go run github.com/air-verse/air@latest -c .air.toml"
